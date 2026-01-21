@@ -3,9 +3,10 @@ import "./App.css";
 
 export default function App() {
   const [blown, setBlown] = useState(false);
+  const [micAccess, setMicAccess] = useState(false);
 
   useEffect(() => {
-    if (blown) return;
+    if (!micAccess || blown) return;
 
     let audioContext;
     let analyser;
@@ -25,11 +26,8 @@ export default function App() {
       const detectBlow = () => {
         analyser.getByteFrequencyData(dataArray);
 
-        // Average volume
-        const volume =
-          dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
+        const volume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
 
-        // 🔥 Adjust threshold if needed
         if (volume > 65) {
           setBlown(true);
           audioContext.close();
@@ -40,16 +38,22 @@ export default function App() {
       };
 
       detectBlow();
-    });
+    }).catch(() => alert("Mic access denied"));
 
     return () => {
       audioContext && audioContext.close();
     };
-  }, [blown]);
+  }, [micAccess, blown]);
 
   return (
     <div className="app">
       <h1 className="title">Happy Birthday Nakshu</h1>
+
+      {!micAccess && (
+        <button className="allow-mic" onClick={() => setMicAccess(true)}>
+          Allow Mic Access
+        </button>
+      )}
 
       <div className="cake-wrapper">
         <img
@@ -58,7 +62,6 @@ export default function App() {
           className="cake-img"
         />
 
-        {/* Smoke overlay */}
         {blown && (
           <>
             <div className="smoke f1" />
@@ -72,7 +75,7 @@ export default function App() {
       <p className="hint">
         {blown
           ? "Make a wish ✨"
-          : "Blow into the mic to blow the candles 💨"}
+          : "Click 'Allow Mic Access' and blow the candles💨"}
       </p>
     </div>
   );
