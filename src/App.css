@@ -1,0 +1,102 @@
+/* FONT */
+@font-face {
+  font-family: "BiroScriptPlus";
+  src: url("./fonts/Biro_Script_reduced.ttf") format("truetype");
+}
+
+
+/* PAGE */
+body {
+  margin: 0;
+  background: #d6b658;
+
+  display: flex;
+  justify-content: center;   /* horizontal center */
+  align-items: center;       /* vertical center */
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* horizontal center */
+  justify-content: center; /* vertical center */
+  text-align: center;
+}
+
+
+/* TITLE */
+.title {
+  font-family: "BiroScriptPlus", cursive;
+  font-size: 64px;
+  color: #d94f96;
+  margin-bottom: 20px;
+}
+
+/* CAKE */
+.cake-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.cake-img {
+  width: 320px;
+  image-rendering: pixelated; /* keep if pixel-art style */
+}
+
+
+
+.candle-hit {
+  position: absolute;
+  width: 24px;
+  height: 40px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.smoke {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(180,180,180,0.6), transparent);
+  animation: smoke 1.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes smoke {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(0.8);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50px) scale(1.2);
+  }
+}
+
+/* SMOKE POSITIONS — ALIGNED TO YOUR IMAGE */
+.f1 { top: 25px; left: 105px; }
+.f2 { top: 20px; left: 145px; }
+.f3 { top: 20px; left: 185px; }
+.f4 { top: 25px; left: 225px; }
+
+/* TEXT */
+.hint {
+  margin-top: 20px;
+  padding: 10px 18px;
+
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+
+  display: inline-block;
+}
