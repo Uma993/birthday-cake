@@ -28,7 +28,7 @@ export default function App() {
 
         const volume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
 
-        if (volume > 30) {
+        if (volume > 45) {
           setBlown(true);
           audioContext.close();
           return;
